@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'musictrackapifrontend';
+  public isSidenavOpened = true;
+
+  public toggleSidenavOpened(){
+    this.isSidenavOpened = !this.isSidenavOpened;
+  }
 }
