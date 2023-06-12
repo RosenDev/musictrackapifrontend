@@ -1,27 +1,17 @@
-<table mat-table [dataSource]="playlists" class="mat-elevation-z8 demo-table">
-  
-    <ng-container matColumnDef="duration">
-      <th mat-header-cell *matHeaderCellDef> Duration </th>
-      <td mat-cell *matCellDef="let element"> {{element.duration}} </td>
-    </ng-container>
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
-    <ng-container matColumnDef="isPublic">
-      <th mat-header-cell *matHeaderCellDef> Is Public </th>
-      <td mat-cell *matCellDef="let element"> {{element.isPublic? 'yes': 'no'}} </td>
-    </ng-container>
-    <ng-container matColumnDef="tracks">
-      <th mat-header-cell *matHeaderCellDef> Tracks </th>
-      <td mat-cell *matCellDef="let element"> {{element.tracks.join(', ')}} </td>
-    </ng-container>
-    <ng-container matColumnDef="album">
-      <th mat-header-cell *matHeaderCellDef> Album </th>
-      <td mat-cell *matCellDef="let element"> {{element.album.name}} </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-  
-  
+<clr-datagrid>
+  <clr-dg-column>Name</clr-dg-column>
+  <clr-dg-column>Duration</clr-dg-column>
+  <clr-dg-column>Is Public</clr-dg-column>
+  <clr-dg-column>Album</clr-dg-column>
+  <clr-dg-column>Tracks</clr-dg-column>
+
+  <clr-dg-row *ngFor="let playlist of playlists">
+    <clr-dg-cell>{{ playlist.name }}</clr-dg-cell>
+    <clr-dg-cell>{{ playlist.duration }}</clr-dg-cell>
+    <clr-dg-cell>{{ playlist.isPublic ? 'yes' : 'no' }}</clr-dg-cell>
+    <clr-dg-cell>{{ playlist.album.name }}</clr-dg-cell>
+    <clr-dg-cell></clr-dg-cell>
+  </clr-dg-row>
+
+  <clr-dg-footer>{{ playlists.length }} playlists</clr-dg-footer>
+</clr-datagrid>

@@ -1,8 +1,7 @@
 import { TrackType } from "./track-type.model";
-import { ApiModel } from "./api.model";
 
 
-export interface TrackModel extends ApiModel {
+export interface CreateTrackModel {
     name: string;
     writtenBy: string;
     performedBy: string;
@@ -10,4 +9,3 @@ export interface TrackModel extends ApiModel {
     duration: string;
     type: TrackType;
 }
-

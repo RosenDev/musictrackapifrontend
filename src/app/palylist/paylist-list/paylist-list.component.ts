@@ -5,7 +5,6 @@ import { FieldFilter } from '../../model/field-filter.model';
 import { FieldValueType } from '../../model/field-value-type.model';
 import { Paging } from '../../model/paging.model';
 import { UsersService } from 'src/app/service/users.service';
-import { LocalService } from 'src/app/service/local.service';
 
 @Component({
   selector: 'app-paylist-list',
