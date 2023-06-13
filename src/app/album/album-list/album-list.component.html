@@ -1,1 +1,13 @@
-<p>album-list works!</p>
+<clr-datagrid>
+  <clr-dg-column>Name</clr-dg-column>
+  <clr-dg-column>Publishing Year</clr-dg-column>
+  <clr-dg-column>Duration</clr-dg-column>
+  <clr-dg-column>Tracks</clr-dg-column>
+
+  <clr-dg-row *ngFor="let album of albums">
+    <clr-dg-cell>{{ album.name }}</clr-dg-cell>
+    <clr-dg-cell>{{ album.publishingYear }}</clr-dg-cell>
+    <clr-dg-cell>{{ album.duration }}</clr-dg-cell>
+    <clr-dg-cell>{{ album.tracks.join(',') }}</clr-dg-cell>
+  </clr-dg-row>
+</clr-datagrid>

@@ -10,8 +10,6 @@
     <clr-dg-cell>{{ playlist.duration }}</clr-dg-cell>
     <clr-dg-cell>{{ playlist.isPublic ? 'yes' : 'no' }}</clr-dg-cell>
     <clr-dg-cell>{{ playlist.album.name }}</clr-dg-cell>
-    <clr-dg-cell></clr-dg-cell>
+    <clr-dg-cell>{{ playlist.tracks.join(',') }}</clr-dg-cell>
   </clr-dg-row>
-
-  <clr-dg-footer>{{ playlists.length }} playlists</clr-dg-footer>
 </clr-datagrid>

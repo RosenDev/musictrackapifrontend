@@ -4,10 +4,12 @@ import { AppComponent } from './app.component';
 import { UserModule } from './user/user.module';
 import { PlaylistModule } from './palylist/playlist.module';
 import { SharedModule } from './shared.module';
+import { AlbumModule } from './album/album.module';
+import { TrackModule } from './track/track.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [SharedModule, UserModule, PlaylistModule],
+  imports: [SharedModule, UserModule, PlaylistModule, AlbumModule, TrackModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
