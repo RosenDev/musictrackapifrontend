@@ -8,6 +8,6 @@
     <clr-dg-cell>{{ album.name }}</clr-dg-cell>
     <clr-dg-cell>{{ album.publishingYear }}</clr-dg-cell>
     <clr-dg-cell>{{ album.duration }}</clr-dg-cell>
-    <clr-dg-cell>{{ album.tracks.join(',') }}</clr-dg-cell>
+    <clr-dg-cell>{{ formatTracks(album.tracks) }}</clr-dg-cell>
   </clr-dg-row>
 </clr-datagrid>

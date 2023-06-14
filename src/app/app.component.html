@@ -7,20 +7,18 @@
         <span class="title">Music Track</span>
       </a>
     </div>
-    <ng-template *ngIf="!isLoggedIn(); else isLogged">
-      <div class="header-actions">
-        <a (click)="loginDefaultUser($event)" class="nav-link">
-          <span class="nav-text">Login</span>
-        </a>
-        <a (click)="registerDefaultUser($event)" class="nav-link">
-          <span class="nav-text">Register</span>
-        </a>
-      </div>
-    </ng-template>
+    <div class="header-actions" *ngIf="!isLoggedIn(); else isLogged">
+      <a [routerLink]="['users/login']" class="nav-link">
+        <span class="nav-text">Login</span>
+      </a>
+      <a [routerLink]="['users/register']" class="nav-link">
+        <span class="nav-text">Register</span>
+      </a>
+    </div>
     <ng-template #isLogged>
       <div class="header-actions">
-        <a (click)="loginDefaultUser($event)" class="nav-link">
-          <span class="nav-text">You are currently logged In</span>
+        <a [routerLink]="['users/logout']" class="nav-link">
+          <span class="nav-text">Logout</span>
         </a>
       </div>
     </ng-template>
