@@ -1,20 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlbumModel } from 'src/app/model/album.model';
-import { FieldFilter } from 'src/app/model/field-filter.model';
-import { FieldValueType } from 'src/app/model/field-value-type.model';
 import { Paging } from 'src/app/model/paging.model';
 import { AlbumsService } from 'src/app/service/albums.service';
+import { AlbumViewModel } from './album-view.model';
 
 @Component({
   selector: 'app-album-list',
   templateUrl: './album-list.component.html',
-  styleUrls: ['./album-list.component.css'],
 })
 export class AlbumListComponent implements OnInit {
   private paging: Paging = { page: 1, size: 100 };
-  public albums: AlbumModel[] = [];
- 
+  public albums: AlbumViewModel[] = [];
+
   constructor(
     private albumsService: AlbumsService,
     private route: ActivatedRoute
@@ -31,22 +28,24 @@ export class AlbumListComponent implements OnInit {
       }
     });
 
-    const filters: FieldFilter[] = [
-      {
-        field: 'name',
-        type: FieldValueType.Text,
-        value: 'test',
-      },
-    ];
+    this.albumsService.searchEntites([], this.paging).subscribe(response => {
+      if (!response) {
+        return;
+      }
 
-    this.albumsService
-      .searchEntites(filters, this.paging)
-      .subscribe(response => {
-        if (!response) {
-          return;
-        }
+      this.albums = [...response.result].map(
+        x =>
+          <AlbumViewModel>{
+            name: x.name,
+            publishingYear: x.publishingYear,
+            tracks: x.tracks.map(x => x.name),
+            duration: x.duration,
+          }
+      );
+    });
+  }
 
-        this.albums = [...response.result];
-      });
+  public formatTracks(tracks: string[]): string{
+    return tracks.join(', ');
   }
 }

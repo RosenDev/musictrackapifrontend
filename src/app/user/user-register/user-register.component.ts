@@ -6,16 +6,15 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserLoginModel } from 'src/app/model/user-login.model';
+import { UserRegisterModel } from 'src/app/model/user-register.model';
 import { UsersService } from 'src/app/service/users.service';
 
 @Component({
-  selector: 'app-user-login',
-  templateUrl: './user-login.component.html',
+  selector: 'app-user-register',
+  templateUrl: './user-register.component.html',
 })
-export class UserLoginComponent {
+export class UserRegisterComponent {
   public usersForm: FormGroup;
-  public errorMessage = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,14 +22,18 @@ export class UserLoginComponent {
     private router: Router
   ) {
     this.usersForm = this.formBuilder.group({
+      email: new FormControl('', Validators.required),
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
     });
   }
 
   public submit() {
-    const userModel = <UserLoginModel>Object.assign({}, this.usersForm.value);
-      this.usersService.login(userModel);
-      this.router.navigate(['/']);
+    const userModel = <UserRegisterModel>(
+      Object.assign({}, this.usersForm.value)
+    );
+    this.usersService.register(userModel);
+
+    this.router.navigate(['/']);
   }
 }

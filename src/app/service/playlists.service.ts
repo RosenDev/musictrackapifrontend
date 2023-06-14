@@ -9,11 +9,12 @@ import { Observable } from "rxjs";
 import { baseUrl } from "../environment";
 import { LocalService } from "./local.service";
 import { ApiResponse } from "../model/api-response.model";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class PlaylistsService extends ServiceBase<PlaylistModel> {
-  constructor(client: HttpClient, localService: LocalService) {
-    super("Playlists", client, localService);
+  constructor(client: HttpClient, localService: LocalService, router: Router) {
+    super("Playlists", client, localService, router);
   }
 
   public createPlaylist(createPlaylistModel: PlaylistCreateModel): Observable<ApiResponse<number>> {

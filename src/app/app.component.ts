@@ -3,8 +3,7 @@ import { UsersService } from './service/users.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   public isSidenavOpened = true;
@@ -24,15 +23,7 @@ export class AppComponent {
     });
   }
 
-  public loginDefaultUser(event: Event) {
-    event.preventDefault();
-    this.usersService.login({
-      username: 'default',
-      password: 'default',
-    });
-  }
-  
   public isLoggedIn(){
-      return this.usersService.isLoggedIn();
+    return this.usersService.isLoggedIn();
   }
 }

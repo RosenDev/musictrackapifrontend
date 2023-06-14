@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PlaylistModel } from '../../model/playlist.model';
 import { PlaylistsService } from '../../service/playlists.service';
-import { FieldFilter } from '../../model/field-filter.model';
-import { FieldValueType } from '../../model/field-value-type.model';
 import { Paging } from '../../model/paging.model';
 import { ActivatedRoute } from '@angular/router';
+import { PlaylistViewModel } from './playlist-view.model';
 
 @Component({
   selector: 'app-paylist-list',
@@ -12,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PlaylistListComponent implements OnInit {
   private paging: Paging = { page: 1, size: 100 };
-  public playlists: PlaylistModel[] = [];
+  public playlists: PlaylistViewModel[] = [];
 
   constructor(
     private playlistsService: PlaylistsService,
@@ -30,20 +28,23 @@ export class PlaylistListComponent implements OnInit {
       }
     });
 
-    const filters: FieldFilter[] = [
-      {
-        field: 'name',
-        type: FieldValueType.Text,
-        value: 'test',
-      },
-    ];
-
-    this.playlistsService.searchEntites(filters, this.paging).subscribe(response => {
+    this.playlistsService.searchEntites([], this.paging).subscribe(response => {
       if (!response) {
         return;
       }
 
-      this.playlists = [...response.result];
+      this.playlists = [...response.result].map(
+        x =>
+          <PlaylistViewModel>{
+            name: x.name,
+            duration: x.duration,
+            isPublic: x.isPublic,
+            album: x.album.name,
+            tracks: x.tracks.map(
+              x => `name: ${x.track.name} position: ${x.trackPosition}`
+            ),
+          }
+      );
     });
   }
 }

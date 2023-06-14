@@ -1,43 +1,59 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from "rxjs";
-import { PagedResponse } from "../model/paged-response.model";
-import { ApiModel } from "../model/api.model";
-import { FieldFilter } from "../model/field-filter.model";
+import { Observable, catchError, of } from 'rxjs';
+import { PagedResponse } from '../model/paged-response.model';
+import { ApiModel } from '../model/api.model';
+import { FieldFilter } from '../model/field-filter.model';
 import { Paging } from '../model/paging.model';
-import { baseUrl } from '../environment'
+import { baseUrl } from '../environment';
 import { LocalService } from './local.service';
 import { ApiResponse } from '../model/api-response.model';
+import { Router } from '@angular/router';
 
-const TOKEN_KEY = "token";
+const TOKEN_KEY = 'token';
 
 export class ServiceBase<TApiModel extends ApiModel> {
+  constructor(
+    protected serviceUrl: string,
+    protected client: HttpClient,
+    private localService: LocalService,
+    private router: Router
+  ) {}
 
-    constructor(
-        protected serviceUrl: string,
-        protected client: HttpClient,
-        private localService: LocalService
-    ) { }
+  public searchEntites(
+    filters: FieldFilter[],
+    paging: Paging
+  ): Observable<PagedResponse<TApiModel>> {
+    return this.client
+      .post<PagedResponse<TApiModel>>(
+        `${baseUrl}/${this.serviceUrl}/search?page=${paging.page}&size=${paging.size}`,
+        filters,
+        { headers: this.createHttpHeaders() }
+      )
+      .pipe(
+        catchError(() => {
+          this.localService.removeData(TOKEN_KEY);
+          this.router.navigate(['/']);
+          return of();
+        })
+      );
+  }
 
-    public searchEntites(filters: FieldFilter[], paging: Paging): Observable<PagedResponse<TApiModel>> {
-        return this.client.post<PagedResponse<TApiModel>>(
-            `${baseUrl}/${this.serviceUrl}/search?page=${paging.page}&size=${paging.size}`,
-            filters,
-            {headers: this.createHttpHeaders()}
-        );
-    }
+  public getEntityById(id: number): Observable<TApiModel> {
+    return this.client.get<TApiModel>(`${baseUrl}/${this.serviceUrl}/${id}`);
+  }
 
-    public getEntityById(id: number): Observable<TApiModel> {
-        return this.client.get<TApiModel>(`${baseUrl}/${this.serviceUrl}/${id}`);
-    }
+  public deleteEntity(id: number): Observable<ApiResponse<object>> {
+    return this.client.delete<ApiResponse<object>>(
+      `${baseUrl}/${this.serviceUrl}/${id}`
+    );
+  }
 
-    public deleteEntity(id: number): Observable<ApiResponse<object>> {
-        return this.client.delete<ApiResponse<object>>(`${baseUrl}/${this.serviceUrl}/${id}`);
-    }
+  protected createHttpHeaders(): HttpHeaders {
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${this.localService.getData(TOKEN_KEY)}`
+    );
 
-    protected createHttpHeaders(): HttpHeaders {
-        const headers = new HttpHeaders()
-            .set("Authorization", `Bearer ${this.localService.getData(TOKEN_KEY)}`)
-
-            return headers;
-    }
+    return headers;
+  }
 }

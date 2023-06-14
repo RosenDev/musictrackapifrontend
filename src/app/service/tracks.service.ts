@@ -8,11 +8,12 @@ import { Observable } from 'rxjs';
 import { baseUrl } from '../environment';
 import { CreateTrackModel } from '../model/create.track.model';
 import { UpdateTrackModel } from '../model/update-track.model';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TracksService extends ServiceBase<TrackModel> {
-  constructor(client: HttpClient, localService: LocalService) {
-    super('tracks', client, localService);
+  constructor(client: HttpClient, localService: LocalService, router: Router) {
+    super('tracks', client, localService, router);
   }
 
   public createTrack(
