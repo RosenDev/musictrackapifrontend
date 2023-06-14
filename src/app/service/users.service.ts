@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { UserLoginModel } from '../model/user-login.model';
 import { baseUrl } from '../environment';
 import { LocalService } from './local.service';
-import { UserModel } from '../model/user.model';
 import { ApiResponse } from '../model/api-response.model';
 import { UserRegisterModel } from '../model/user-register.model';
 
@@ -34,13 +32,6 @@ export class UsersService {
       .subscribe(res => {
         this.localService.saveData(TOKEN_KEY, res.result);
       });
-  }
-
-  public getCurrentUser(): Observable<ApiResponse<UserModel>> {
-    return this.client.post<ApiResponse<UserModel>>(
-      `${baseUrl}/users/getcurrentuser`,
-      null
-    );
   }
 
   public isLoggedIn(): boolean {
