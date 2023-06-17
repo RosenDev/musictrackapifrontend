@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FieldFilter } from 'src/app/model/field-filter.model';
-import { FieldValueType } from 'src/app/model/field-value-type.model';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Paging } from 'src/app/model/paging.model';
 import { TrackModel } from 'src/app/model/track.model';
 import { TracksService } from 'src/app/service/tracks.service';
@@ -9,45 +7,61 @@ import { TracksService } from 'src/app/service/tracks.service';
 @Component({
   selector: 'app-track-list',
   templateUrl: './track-list.component.html',
-  styleUrls: ['./track-list.component.css'],
 })
 export class TrackListComponent implements OnInit {
-  private paging: Paging = { page: 1, size: 100 };
+  private _pageNumber = 0;
+
+  public get pageNumber(): number {
+    return this._pageNumber;
+  }
+
+  public set pageNumber(value: number) {
+    const paging = <Paging>{ page: this._pageNumber, size: 100 };
+    this.searchTracks(paging);
+  }
 
   public tracks: TrackModel[] = [];
-  
+
   constructor(
     private tracksService: TracksService,
+    private router: Router,
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.route.queryParamMap.subscribe(x => {
-      if (x.get('page')) {
-        this.paging.page = Number(x.get('page'));
-      }
-
-      if (x.get('size')) {
-        this.paging.size = Number(x.get('size'));
-      }
+      this._pageNumber = Number(x.get('page'));
     });
+    const paging = <Paging>{ page: this.pageNumber, size: 100 };
+    this.tracksService.searchEntites([], paging).subscribe(response => {
+      if (!response) {
+        return;
+      }
 
-    const filters: FieldFilter[] = [
-      {
-        field: 'name',
-        type: FieldValueType.Text,
-        value: 'test',
-      },
-    ];
+      this.tracks = [...response.result];
+    });
+  }
 
-    this.tracksService
-      .searchEntites(filters, this.paging)
-      .subscribe(response => {
-        if (!response) {
-          return;
-        }
+  private searchTracks(paging: Paging) {
+    this.router.navigate([''], {
+      relativeTo: this.route,
+      queryParams: { page: paging.page, size: paging.size },
+    });
+  }
 
-        this.tracks = [...response.result];
-      });
+  public deleteTrack(id: number) {
+    this.tracksService.deleteEntity(id).subscribe(() => {
+      this.router
+        .navigateByUrl('/refresh', { skipLocationChange: true })
+        .then(() => {
+          this.router.navigate(['tracks'], {
+            queryParams: { page: this.pageNumber, size: 100 },
+          });
+        });
+    });
+  }
+
+  public editTrack(id: number) {
+    this.router.navigate([`edit/${id}`], { relativeTo: this.route });
   }
 }

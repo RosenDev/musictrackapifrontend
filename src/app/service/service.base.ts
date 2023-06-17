@@ -38,13 +38,16 @@ export class ServiceBase<TApiModel extends ApiModel> {
       );
   }
 
-  public getEntityById(id: number): Observable<TApiModel> {
-    return this.client.get<TApiModel>(`${baseUrl}/${this.serviceUrl}/${id}`);
+  public getEntityById(id: number): Observable<ApiResponse<TApiModel>> {
+    return this.client.get<ApiResponse<TApiModel>>(`${baseUrl}/${this.serviceUrl}/${id}`, {
+      headers: this.createHttpHeaders(),
+    });
   }
 
   public deleteEntity(id: number): Observable<ApiResponse<object>> {
     return this.client.delete<ApiResponse<object>>(
-      `${baseUrl}/${this.serviceUrl}/${id}`
+      `${baseUrl}/${this.serviceUrl}/${id}`,
+      { headers: this.createHttpHeaders() }
     );
   }
 

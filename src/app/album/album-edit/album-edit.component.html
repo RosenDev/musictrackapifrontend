@@ -1,0 +1,30 @@
+<h1>{{ title }}</h1>
+<form clrForm [formGroup]="albumForm">
+  <clr-input-container>
+    <label for="name">Name</label>
+    <input clrInput type="text" formControlName="name" />
+    <clr-control-error>Name is required</clr-control-error>
+  </clr-input-container>
+  <clr-input-container>
+    <label for="publishingYear">Publishing Year</label>
+    <input clrInput type="number" formControlName="publishingYear" />
+    <clr-control-error>Publishing Year By is required</clr-control-error>
+  </clr-input-container>
+  <clr-input-container>
+    <label for="trackIds">Track Ids</label>
+    <input
+      clrInput
+      type="text"
+      formControlName="trackIds"
+      placeholder="Please enter track ids sperated by comma and space: id1, id2, id3" />
+    <clr-control-error>Track Ids is required</clr-control-error>
+  </clr-input-container>
+  <clr-input-container>
+    <label for="duration">Duration</label>
+    <input clrInput type="text" formControlName="duration" />
+    <clr-control-error>Duration is required</clr-control-error>
+  </clr-input-container>
+  <clr-control-container>
+    <button (click)="submit()" class="btn btn-primary">Submit</button>
+  </clr-control-container>
+</form>

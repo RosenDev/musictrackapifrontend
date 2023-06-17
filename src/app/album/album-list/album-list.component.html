@@ -3,11 +3,19 @@
   <clr-dg-column>Publishing Year</clr-dg-column>
   <clr-dg-column>Duration</clr-dg-column>
   <clr-dg-column>Tracks</clr-dg-column>
+  <clr-dg-column>Actions</clr-dg-column>
 
   <clr-dg-row *ngFor="let album of albums">
     <clr-dg-cell>{{ album.name }}</clr-dg-cell>
     <clr-dg-cell>{{ album.publishingYear }}</clr-dg-cell>
     <clr-dg-cell>{{ album.duration }}</clr-dg-cell>
     <clr-dg-cell>{{ formatTracks(album.tracks) }}</clr-dg-cell>
+    <clr-dg-cell>
+      <clr-button
+        (click)="deleteAlbum(album.id)"
+        class="btn btn-danger-outline">
+        Delete
+      </clr-button>
+    </clr-dg-cell>
   </clr-dg-row>
 </clr-datagrid>

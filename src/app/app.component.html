@@ -34,7 +34,10 @@
       <a [routerLink]="['/albums']" class="nav-link">
         <span class="nav-text">Albums</span>
       </a>
-      <a [routerLink]="['/tracks']" class="nav-link">
+      <a
+        [routerLink]="['/tracks']"
+        [queryParams]="{ page: 1, size: 100 }"
+        class="nav-link">
         <span class="nav-text">Tracks</span>
       </a>
     </clr-vertical-nav>

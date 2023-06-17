@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PlaylistsService } from '../../service/playlists.service';
 import { Paging } from '../../model/paging.model';
-import { ActivatedRoute } from '@angular/router';
 import { PlaylistViewModel } from './playlist-view.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-paylist-list',
@@ -14,20 +14,11 @@ export class PlaylistListComponent implements OnInit {
 
   constructor(
     private playlistsService: PlaylistsService,
+    private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParamMap.subscribe(x => {
-      if (x.get('page')) {
-        this.paging.page = Number(x.get('page'));
-      }
-
-      if (x.get('size')) {
-        this.paging.size = Number(x.get('size'));
-      }
-    });
-
     this.playlistsService.searchEntites([], this.paging).subscribe(response => {
       if (!response) {
         return;
@@ -36,6 +27,7 @@ export class PlaylistListComponent implements OnInit {
       this.playlists = [...response.result].map(
         x =>
           <PlaylistViewModel>{
+            id: x.id,
             name: x.name,
             duration: x.duration,
             isPublic: x.isPublic,
@@ -45,6 +37,17 @@ export class PlaylistListComponent implements OnInit {
             ),
           }
       );
+    });
+  }
+  public deletePlaylist(id: number) {
+    this.playlistsService.deleteEntity(id).subscribe(() => {
+      this.router
+        .navigateByUrl('/refresh', { skipLocationChange: true })
+        .then(() => {
+          this.router.navigate(['playlists'], {
+            queryParams: { page: 1, size: 100 },
+          });
+        });
     });
   }
 }

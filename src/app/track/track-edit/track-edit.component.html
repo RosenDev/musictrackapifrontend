@@ -1,0 +1,40 @@
+<h1>{{ title }}</h1>
+<form clrForm [formGroup]="trackForm">
+  <clr-input-container>
+    <label for="name">Name</label>
+    <input clrInput type="text" formControlName="name" />
+    <clr-control-error>Name is required</clr-control-error>
+  </clr-input-container>
+  <clr-input-container>
+    <label for="writtenBy">Written By</label>
+    <input clrInput type="text" formControlName="writtenBy" />
+    <clr-control-error>Written By is required</clr-control-error>
+  </clr-input-container>
+  <clr-input-container>
+    <label for="performedBy">Performed By</label>
+    <input clrInput type="text" formControlName="performedBy" />
+    <clr-control-error>Performed By is required</clr-control-error>
+  </clr-input-container>
+  <clr-input-container>
+    <label for="arrangedBy">Arranged By</label>
+    <input clrInput type="text" formControlName="arrangedBy" />
+    <clr-control-error>Arranged By is required</clr-control-error>
+  </clr-input-container>
+  <clr-input-container>
+    <label for="duration">Duration</label>
+    <input clrInput type="text" formControlName="duration" />
+    <clr-control-error>Duration is required</clr-control-error>
+  </clr-input-container>
+  <clr-select-container>
+    <label for="type">Type </label>
+    <select clrSelect formControlName="type">
+      <option value="Recording">Recording</option>
+      <option value="LivePerformance">LivePerformance</option>
+      <option value="FilmMusic">FilmMusic</option>
+      <option value="BackgroundMusic">BackgroundMusic</option>
+    </select>
+  </clr-select-container>
+  <clr-control-container>
+    <button (click)="submit()" class="btn btn-primary">Submit</button>
+  </clr-control-container>
+</form>

@@ -5,6 +5,7 @@
   <clr-dg-column>Arranged By</clr-dg-column>
   <clr-dg-column>Duration</clr-dg-column>
   <clr-dg-column>Type</clr-dg-column>
+  <clr-dg-column>Actions</clr-dg-column>
 
   <clr-dg-row *ngFor="let track of tracks">
     <clr-dg-cell>{{ track.name }}</clr-dg-cell>
@@ -13,5 +14,24 @@
     <clr-dg-cell>{{ track.arrangedBy }}</clr-dg-cell>
     <clr-dg-cell>{{ track.duration }}</clr-dg-cell>
     <clr-dg-cell>{{ track.type }}</clr-dg-cell>
+    <clr-dg-cell>
+      <clr-button
+        (click)="deleteTrack(track.id)"
+        class="btn btn-danger-outline">
+        Delete
+      </clr-button>
+      <clr-button (click)="editTrack(track.id)" class="btn btn-primary-outline">
+        Edit
+      </clr-button>
+    </clr-dg-cell>
   </clr-dg-row>
+  <clr-dg-footer>
+    <clr-dg-pagination #pagination [clrDgPageSize]="10">
+      <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">
+        Tracks per page
+      </clr-dg-page-size>
+      {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of
+      {{ pagination.totalItems }} tracks
+    </clr-dg-pagination>
+  </clr-dg-footer>
 </clr-datagrid>

@@ -31,7 +31,7 @@ export class TracksService extends ServiceBase<TrackModel> {
   public updateTrack(
     updateTrackModel: UpdateTrackModel
   ): Observable<ApiResponse<number>> {
-    return this.client.post<ApiResponse<number>>(
+    return this.client.put<ApiResponse<number>>(
       `${baseUrl}/${this.serviceUrl}`,
       updateTrackModel,
       {
