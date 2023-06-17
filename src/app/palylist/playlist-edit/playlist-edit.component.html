@@ -1,1 +1,39 @@
-<p>playlist-edit works!</p>
+<h1>{{ title }}</h1>
+<form clrForm [formGroup]="playlistForm">
+  <clr-input-container>
+    <label for="name">Name</label>
+    <input clrInput type="text" formControlName="name" />
+    <clr-control-error>Name is required</clr-control-error>
+  </clr-input-container>
+  <clr-input-container>
+    <label for="duration">Duration</label>
+    <input clrInput type="text" formControlName="duration" />
+    <clr-control-error>Duration is required</clr-control-error>
+  </clr-input-container>
+  <clr-checkbox-container>
+    <label for="isPublic">Is Public</label>
+    <input clrInput type="checkbox" formControlName="isPublic" />
+  </clr-checkbox-container>
+  <clr-input-container>
+    <label for="duration">Duration</label>
+    <input clrInput type="text" formControlName="duration" />
+    <clr-control-error>Duration is required</clr-control-error>
+  </clr-input-container>
+  <clr-input-container>
+    <label for="albumId">Album Id</label>
+    <input clrInput type="text" formControlName="albumId" />
+    <clr-control-error>Album Id is required</clr-control-error>
+  </clr-input-container>
+  <clr-control-container>
+    <clr-input-container>
+      <label for="trackIds">Track Ids</label>
+      <input
+        clrInput
+        type="text"
+        formControlName="trackIds"
+        placeholder="Please enter track ids sperated by comma and space: id1, id2, id3" />
+      <clr-control-error>Track Ids is required</clr-control-error>
+    </clr-input-container>
+    <button (click)="submit()" class="btn btn-primary">Submit</button>
+  </clr-control-container>
+</form>

@@ -1,7 +1,7 @@
 
-export interface PlaylistCreateModel {
+export interface CreatePlaylistModel {
     name: string;
     isPublic: boolean;
-    tracksIds: number[];
+    trackIds: number[];
     albumId?: number;
 }
