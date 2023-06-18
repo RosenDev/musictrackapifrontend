@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PlaylistsService } from '../../service/playlists.service';
 import { Paging } from '../../model/paging.model';
 import { PlaylistViewModel } from './playlist-view.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ClrDatagridPagination } from '@clr/angular';
 
 @Component({
   selector: 'app-paylist-list',
@@ -11,6 +12,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PlaylistListComponent implements OnInit {
   private paging: Paging = { page: 1, size: 100 };
   public playlists: PlaylistViewModel[] = [];
+
+  @ViewChild('pagination')
+  public pagination!: ClrDatagridPagination;
 
   constructor(
     private playlistsService: PlaylistsService,
@@ -53,5 +57,9 @@ export class PlaylistListComponent implements OnInit {
 
   public editPlaylist(id: number) {
     this.router.navigate(['edit', id], { relativeTo: this.route });
+  }
+
+  public createPlaylist() {
+    this.router.navigate(['create'], { relativeTo: this.route });
   }
 }

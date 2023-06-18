@@ -1,3 +1,7 @@
+<clr-button
+  class="btn btn-primary-outline"
+  (click)="createPlaylist()"
+  [textContent]="'Add'"></clr-button>
 <clr-datagrid>
   <clr-dg-column>Id</clr-dg-column>
   <clr-dg-column>Name</clr-dg-column>
@@ -27,4 +31,13 @@
       </clr-button>
     </clr-dg-cell>
   </clr-dg-row>
+  <clr-dg-footer>
+    <clr-dg-pagination #pagination [clrDgPageSize]="10">
+      <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">
+        Playlists per page
+      </clr-dg-page-size>
+      {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of
+      {{ pagination.totalItems }} playlists
+    </clr-dg-pagination>
+  </clr-dg-footer>
 </clr-datagrid>

@@ -56,4 +56,8 @@ export class AlbumListComponent implements OnInit {
   public editAlbum(id: number) {
     this.router.navigate(['edit', id], { relativeTo: this.route });
   }
+
+  public createAlbum() {
+    this.router.navigate(['create'], { relativeTo: this.route });
+  }
 }

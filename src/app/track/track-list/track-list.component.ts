@@ -62,6 +62,9 @@ export class TrackListComponent implements OnInit {
   }
 
   public editTrack(id: number) {
-    this.router.navigate([`edit/${id}`], { relativeTo: this.route });
+    this.router.navigate(['edit', id], { relativeTo: this.route });
+  }
+  public addTrack() {
+    this.router.navigate(['create'], { relativeTo: this.route });
   }
 }
