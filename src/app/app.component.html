@@ -27,23 +27,14 @@
     <div class="content-area">
       <router-outlet></router-outlet>
     </div>
-    <clr-vertical-nav>
-      <a
-        [routerLink]="['/playlists']"
-        [queryParams]="{ page: 1, size: 10 }"
-        class="nav-link">
+    <clr-vertical-nav *ngIf="isLoggedIn()">
+      <a [routerLink]="['/playlists']" class="nav-link">
         <span class="nav-text">Playlists</span>
       </a>
-      <a
-        [routerLink]="['/albums']"
-        [queryParams]="{ page: 1, size: 10 }"
-        class="nav-link">
+      <a [routerLink]="['/albums']" class="nav-link">
         <span class="nav-text">Albums</span>
       </a>
-      <a
-        [routerLink]="['/tracks']"
-        [queryParams]="{ page: 1, size: 10 }"
-        class="nav-link">
+      <a [routerLink]="['/tracks']" class="nav-link">
         <span class="nav-text">Tracks</span>
       </a>
     </clr-vertical-nav>
