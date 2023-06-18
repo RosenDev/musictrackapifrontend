@@ -60,9 +60,7 @@ export class PlaylistEditComponent implements OnInit {
         .map(Number);
       this.playlistsService.createPlaylist(playlistModel).subscribe(success => {
         if (success.result) {
-          this.router.navigate(['playlists'], {
-            queryParams: { page: 1, size: 100 },
-          });
+          this.router.navigate(['playlists']);
         }
       });
     } else {
@@ -72,9 +70,7 @@ export class PlaylistEditComponent implements OnInit {
       playlistModel.tracksIds = this.playlistForm.value.trackIds.split(', ');
       this.playlistsService.updatePlaylist(playlistModel).subscribe(success => {
         if (success.result) {
-          this.router.navigate(['playlists'], {
-            queryParams: { page: 1, size: 100 },
-          });
+          this.router.navigate(['playlists']);
         }
       });
     }

@@ -58,9 +58,7 @@ export class AlbumEditComponent implements OnInit {
       albumModel.trackIds = this.albumForm.value.trackIds.split(', ');
       this.albumsService.createAlbum(albumModel).subscribe(success => {
         if (success.result) {
-          this.router.navigate(['albums'], {
-            queryParams: { page: 1, size: 100 },
-          });
+          this.router.navigate(['albums']);
         }
       });
     } else {
@@ -70,9 +68,7 @@ export class AlbumEditComponent implements OnInit {
       albumModel.trackIds = this.albumForm.value.trackIds.split(', ');
       this.albumsService.updateAlbum(albumModel).subscribe(success => {
         if (success.result) {
-          this.router.navigate(['albums'], {
-            queryParams: { page: 1, size: 100 },
-          });
+          this.router.navigate(['albums']);
         }
       });
     }

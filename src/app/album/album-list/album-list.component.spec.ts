@@ -1,15 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserLogoutComponent } from './user-logout.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ClarityModule } from '@clr/angular';
 import { ServiceModule } from 'src/app/service/service.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AlbumListComponent } from './album-list.component';
 
-describe('UserLogoutComponent', () => {
-  let component: UserLogoutComponent;
-  let fixture: ComponentFixture<UserLogoutComponent>;
+describe('AlbumListComponent', () => {
+  let component: AlbumListComponent;
+  let fixture: ComponentFixture<AlbumListComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -18,12 +17,10 @@ describe('UserLogoutComponent', () => {
         ClarityModule,
         ServiceModule,
         RouterTestingModule,
-        ReactiveFormsModule,
-        FormsModule,
       ],
-      declarations: [UserLogoutComponent],
+      declarations: [AlbumListComponent],
     });
-    fixture = TestBed.createComponent(UserLogoutComponent);
+    fixture = TestBed.createComponent(AlbumListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

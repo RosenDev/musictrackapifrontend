@@ -59,9 +59,7 @@ export class TrackEditComponent implements OnInit {
       );
       this.tracksService.createTrack(trackModel).subscribe(success => {
         if (success) {
-          this.router.navigate(['tracks'], {
-            queryParams: { page: 1, size: 100 },
-          });
+          this.router.navigate(['tracks']);
         }
       });
     } else {
@@ -70,9 +68,7 @@ export class TrackEditComponent implements OnInit {
       );
       this.tracksService.updateTrack(trackModel).subscribe(success => {
         if (success.result) {
-          this.router.navigate(['tracks'], {
-            queryParams: { page: 1, size: 100 },
-          });
+          this.router.navigate(['tracks']);
         }
       });
     }
