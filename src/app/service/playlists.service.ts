@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { PlaylistModel } from "../model/playlist.model";
-import { PlaylistCreateModel } from "../model/playlist-create.model";
+import { CreatePlaylistModel } from "../model/create-playlist.model";
 import { InsertTrackInPlaylistModel } from "../model/insert-track-in-playlist.model";
-import { PlaylistUpdateModel } from "../model/playlist-update.model";
+import { UpdatePlaylistModel } from "../model/update-playlist.model";
 import { ServiceBase } from "./service.base";
 import { Observable } from "rxjs";
 import { baseUrl } from "../environment";
@@ -17,7 +17,7 @@ export class PlaylistsService extends ServiceBase<PlaylistModel> {
     super("Playlists", client, localService, router);
   }
 
-  public createPlaylist(createPlaylistModel: PlaylistCreateModel): Observable<ApiResponse<number>> {
+  public createPlaylist(createPlaylistModel: CreatePlaylistModel): Observable<ApiResponse<number>> {
     return this.client.post<ApiResponse<number>>(
       `${baseUrl}/${this.serviceUrl}`,
       createPlaylistModel,
@@ -25,7 +25,7 @@ export class PlaylistsService extends ServiceBase<PlaylistModel> {
     );
   }
 
-  public updatePlaylist(updatePlaylistModel: PlaylistUpdateModel): Observable<ApiResponse<number>> {
+  public updatePlaylist(updatePlaylistModel: UpdatePlaylistModel): Observable<ApiResponse<number>> {
     return this.client.put<ApiResponse<number>>(
       `${baseUrl}/${this.serviceUrl}`,
       updatePlaylistModel,

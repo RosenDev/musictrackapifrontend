@@ -7,13 +7,15 @@
   <clr-input-container>
     <label for="username">Username</label>
     <input clrInput type="text" formControlName="username" />
-    <clr-control-error>Username is required</clr-control-error>
+    <clr-control-error *clrIfError="'required'">
+      Username is required
+    </clr-control-error>
   </clr-input-container>
-  <clr-input-container>
+  <clr-password-container>
     <label for="password">Password</label>
-    <input clrInput type="text" formControlName="password" />
+    <input clrPassword formControlName="password" />
     <clr-control-error>Password is required</clr-control-error>
-  </clr-input-container>
+  </clr-password-container>
   <clr-control-container>
     <button (click)="submit()" class="btn btn-primary">Register</button>
   </clr-control-container>

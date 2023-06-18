@@ -1,0 +1,31 @@
+<h1>{{ title }}</h1>
+<form clrForm [formGroup]="playlistForm">
+  <clr-input-container>
+    <label for="name">Name</label>
+    <input clrInput type="text" formControlName="name" />
+    <clr-control-error>Name is required</clr-control-error>
+  </clr-input-container>
+  <clr-checkbox-container>
+    <label for="isPublic">Is Public</label>
+    <clr-checkbox-wrapper>
+      <input type="checkbox" clrCheckbox formControlName="isPublic" />
+    </clr-checkbox-wrapper>
+  </clr-checkbox-container>
+  <clr-input-container>
+    <label for="albumId">Album Id</label>
+    <input clrInput type="text" formControlName="albumId" />
+    <clr-control-error>Album Id is required</clr-control-error>
+  </clr-input-container>
+  <clr-control-container>
+    <clr-input-container>
+      <label for="trackIds">Track Ids</label>
+      <input
+        clrInput
+        type="text"
+        formControlName="trackIds"
+        placeholder="id1, id2, id3..." />
+      <clr-control-error>Track Ids is required</clr-control-error>
+    </clr-input-container>
+    <button (click)="submit()" class="btn btn-primary">Submit</button>
+  </clr-control-container>
+</form>

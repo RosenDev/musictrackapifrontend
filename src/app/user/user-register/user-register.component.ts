@@ -22,18 +22,24 @@ export class UserRegisterComponent {
     private router: Router
   ) {
     this.usersForm = this.formBuilder.group({
-      email: new FormControl('', Validators.required),
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
     });
   }
 
   public submit() {
+    if (this.usersForm.invalid) {
+      return;
+    }
+
     const userModel = <UserRegisterModel>(
       Object.assign({}, this.usersForm.value)
     );
-    this.usersService.register(userModel);
-
-    this.router.navigate(['/']);
+    this.usersService.register(userModel).subscribe(success => {
+      if (success) {
+        this.router.navigate(['/']);
+      }
+    });
   }
 }

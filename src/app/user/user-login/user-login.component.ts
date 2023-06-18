@@ -30,7 +30,10 @@ export class UserLoginComponent {
 
   public submit() {
     const userModel = <UserLoginModel>Object.assign({}, this.usersForm.value);
-      this.usersService.login(userModel);
-      this.router.navigate(['/']);
+    this.usersService.login(userModel).subscribe(success => {
+      if (success) {
+        this.router.navigate(['/']);
+      }
+    });
   }
 }

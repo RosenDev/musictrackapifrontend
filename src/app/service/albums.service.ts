@@ -27,10 +27,10 @@ export class AlbumsService extends ServiceBase<AlbumModel> {
     );
   }
 
-  public updateTrack(
+  public updateAlbum(
     updateAlbumModel: UpdateAlbumModel
   ): Observable<ApiResponse<number>> {
-    return this.client.post<ApiResponse<number>>(
+    return this.client.put<ApiResponse<number>>(
       `${baseUrl}/${this.serviceUrl}`,
       updateAlbumModel,
       {
