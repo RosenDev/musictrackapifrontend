@@ -8,7 +8,6 @@
   <clr-dg-column>Duration</clr-dg-column>
   <clr-dg-column>Is Public</clr-dg-column>
   <clr-dg-column>Album</clr-dg-column>
-  <clr-dg-column>Tracks</clr-dg-column>
   <clr-dg-column>Actions</clr-dg-column>
 
   <clr-dg-row *ngFor="let playlist of playlists">
@@ -17,7 +16,6 @@
     <clr-dg-cell>{{ playlist.duration }}</clr-dg-cell>
     <clr-dg-cell>{{ playlist.isPublic ? 'yes' : 'no' }}</clr-dg-cell>
     <clr-dg-cell>{{ playlist.album }}</clr-dg-cell>
-    <clr-dg-cell>{{ playlist.tracks.join(',') }}</clr-dg-cell>
     <clr-dg-cell>
       <clr-button
         (click)="editPlaylist(playlist.id)"

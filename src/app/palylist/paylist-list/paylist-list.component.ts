@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PlaylistsService } from '../../service/playlists.service';
 import { Paging } from '../../model/paging.model';
 import { PlaylistViewModel } from './playlist-view.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClrDatagridPagination } from '@clr/angular';
 
 @Component({
   selector: 'app-paylist-list',
@@ -31,10 +30,7 @@ export class PlaylistListComponent implements OnInit {
             name: x.name,
             duration: x.duration,
             isPublic: x.isPublic,
-            album: x.album.name,
-            tracks: x.tracks.map(
-              x => `name: ${x.track.name} position: ${x.trackPosition}`
-            ),
+            album: x.album.name
           }
       );
     });
