@@ -10,12 +10,7 @@ import { ClrDatagridPagination } from '@clr/angular';
   templateUrl: './paylist-list.component.html',
 })
 export class PlaylistListComponent implements OnInit {
-  private paging: Paging = { page: 1, size: 100 };
   public playlists: PlaylistViewModel[] = [];
-
-  @ViewChild('pagination')
-  public pagination!: ClrDatagridPagination;
-
   constructor(
     private playlistsService: PlaylistsService,
     private router: Router,
@@ -23,7 +18,8 @@ export class PlaylistListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.playlistsService.searchEntites([], this.paging).subscribe(response => {
+    const paging = <Paging>{ page: 1, size: 1000 };
+    this.playlistsService.searchEntites([], paging).subscribe(response => {
       if (!response) {
         return;
       }
@@ -48,9 +44,7 @@ export class PlaylistListComponent implements OnInit {
       this.router
         .navigateByUrl('/refresh', { skipLocationChange: true })
         .then(() => {
-          this.router.navigate(['playlists'], {
-            queryParams: { page: 1, size: 100 },
-          });
+          this.router.navigate([''], { relativeTo: this.route });
         });
     });
   }

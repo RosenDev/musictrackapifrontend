@@ -29,7 +29,6 @@ export class PlaylistEditComponent implements OnInit {
       name: new FormControl('', [Validators.required]),
       isPublic: new FormControl(false, [Validators.required]),
       trackIds: new FormControl('', [Validators.required]),
-      duration: new FormControl('', [Validators.required]),
       albumId: new FormControl('', [Validators.required]),
     });
   }

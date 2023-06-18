@@ -9,7 +9,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './album-list.component.html',
 })
 export class AlbumListComponent implements OnInit {
-  private paging: Paging = { page: 1, size: 100 };
   public albums: AlbumViewModel[] = [];
 
   constructor(
@@ -19,7 +18,8 @@ export class AlbumListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.albumsService.searchEntites([], this.paging).subscribe(response => {
+    const paging = <Paging>{ page: 1, size: 1000 };
+    this.albumsService.searchEntites([], paging).subscribe(response => {
       if (!response) {
         return;
       }
@@ -46,9 +46,7 @@ export class AlbumListComponent implements OnInit {
       this.router
         .navigateByUrl('/refresh', { skipLocationChange: true })
         .then(() => {
-          this.router.navigate(['albums'], {
-            queryParams: { page: 1, size: 100 },
-          });
+          this.router.navigate([''], { relativeTo: this.route });
         });
     });
   }

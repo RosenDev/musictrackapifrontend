@@ -9,17 +9,6 @@ import { TracksService } from 'src/app/service/tracks.service';
   templateUrl: './track-list.component.html',
 })
 export class TrackListComponent implements OnInit {
-  private _pageNumber = 0;
-
-  public get pageNumber(): number {
-    return this._pageNumber;
-  }
-
-  public set pageNumber(value: number) {
-    const paging = <Paging>{ page: this._pageNumber, size: 100 };
-    this.searchTracks(paging);
-  }
-
   public tracks: TrackModel[] = [];
 
   constructor(
@@ -29,10 +18,7 @@ export class TrackListComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.route.queryParamMap.subscribe(x => {
-      this._pageNumber = Number(x.get('page'));
-    });
-    const paging = <Paging>{ page: this.pageNumber, size: 100 };
+    const paging = <Paging>{ page: 1, size: 1000 };
     this.tracksService.searchEntites([], paging).subscribe(response => {
       if (!response) {
         return;
@@ -41,22 +27,12 @@ export class TrackListComponent implements OnInit {
       this.tracks = [...response.result];
     });
   }
-
-  private searchTracks(paging: Paging) {
-    this.router.navigate([''], {
-      relativeTo: this.route,
-      queryParams: { page: paging.page, size: paging.size },
-    });
-  }
-
   public deleteTrack(id: number) {
     this.tracksService.deleteEntity(id).subscribe(() => {
       this.router
         .navigateByUrl('/refresh', { skipLocationChange: true })
         .then(() => {
-          this.router.navigate(['tracks'], {
-            queryParams: { page: this.pageNumber, size: 100 },
-          });
+          this.router.navigate([''], {relativeTo: this.route});
         });
     });
   }
