@@ -29,7 +29,7 @@ export class AlbumEditComponent implements OnInit {
       name: new FormControl('', [Validators.required]),
       publishingYear: new FormControl('', [Validators.required]),
       trackIds: new FormControl('', [Validators.required]),
-      duration: new FormControl('', [Validators.required])
+      duration: new FormControl('', [Validators.required]),
     });
   }
   public ngOnInit(): void {
@@ -55,10 +55,12 @@ export class AlbumEditComponent implements OnInit {
       const albumModel = <CreateAlbumModel>(
         Object.assign({}, this.albumForm.value)
       );
-        albumModel.trackIds = this.albumForm.value.trackIds.split(', ');
+      albumModel.trackIds = this.albumForm.value.trackIds.split(', ');
       this.albumsService.createAlbum(albumModel).subscribe(success => {
         if (success.result) {
-          this.router.navigate(['albums']);
+          this.router.navigate(['albums'], {
+            queryParams: { page: 1, size: 100 },
+          });
         }
       });
     } else {
@@ -68,7 +70,9 @@ export class AlbumEditComponent implements OnInit {
       albumModel.trackIds = this.albumForm.value.trackIds.split(', ');
       this.albumsService.updateAlbum(albumModel).subscribe(success => {
         if (success.result) {
-          this.router.navigate(['albums']);
+          this.router.navigate(['albums'], {
+            queryParams: { page: 1, size: 100 },
+          });
         }
       });
     }

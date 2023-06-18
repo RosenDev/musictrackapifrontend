@@ -28,10 +28,16 @@
       <router-outlet></router-outlet>
     </div>
     <clr-vertical-nav>
-      <a [routerLink]="['/playlists']" class="nav-link">
+      <a
+        [routerLink]="['/playlists']"
+        [queryParams]="{ page: 1, size: 100 }"
+        class="nav-link">
         <span class="nav-text">Playlists</span>
       </a>
-      <a [routerLink]="['/albums']" class="nav-link">
+      <a
+        [routerLink]="['/albums']"
+        [queryParams]="{ page: 1, size: 100 }"
+        class="nav-link">
         <span class="nav-text">Albums</span>
       </a>
       <a

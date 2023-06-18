@@ -31,7 +31,7 @@ export class AlbumListComponent implements OnInit {
             name: x.name,
             publishingYear: x.publishingYear,
             tracks: x.tracks.map(x => x.name),
-            duration: x.duration
+            duration: x.duration,
           }
       );
     });
@@ -43,11 +43,17 @@ export class AlbumListComponent implements OnInit {
 
   public deleteAlbum(id: number) {
     this.albumsService.deleteEntity(id).subscribe(() => {
-      this.router.navigateByUrl('/refresh', { skipLocationChange: true }).then(() => {
-        this.router.navigate(['albums'], {
-          queryParams: { page: 1, size: 100 },
+      this.router
+        .navigateByUrl('/refresh', { skipLocationChange: true })
+        .then(() => {
+          this.router.navigate(['albums'], {
+            queryParams: { page: 1, size: 100 },
+          });
         });
-    }); 
     });
+  }
+
+  public editAlbum(id: number) {
+    this.router.navigate(['edit', id], { relativeTo: this.route });
   }
 }

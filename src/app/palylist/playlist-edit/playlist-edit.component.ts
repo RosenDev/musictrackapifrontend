@@ -27,21 +27,22 @@ export class PlaylistEditComponent implements OnInit {
   ) {
     this.playlistForm = this.formBuilder.group({
       name: new FormControl('', [Validators.required]),
-      publishingYear: new FormControl('', [Validators.required]),
+      isPublic: new FormControl(false, [Validators.required]),
       trackIds: new FormControl('', [Validators.required]),
       duration: new FormControl('', [Validators.required]),
+      albumId: new FormControl('', [Validators.required]),
     });
   }
   public ngOnInit(): void {
     this.route.paramMap.subscribe(x => {
       if (x.has('id')) {
-        this.title = 'Update Album';
+        this.title = 'Update Playlist';
         this.playlistId = Number(x.get('id'));
         this.playlistsService.getEntityById(this.playlistId).subscribe(x => {
           this.playlistForm.patchValue(x.result);
         });
       } else {
-        this.title = 'Create Album';
+        this.title = 'Create Playlist';
       }
     });
   }
@@ -55,20 +56,26 @@ export class PlaylistEditComponent implements OnInit {
       const playlistModel = <CreatePlaylistModel>(
         Object.assign({}, this.playlistForm.value)
       );
-      playlistModel.trackIds = this.playlistForm.value.trackIds.split(', ');
+      playlistModel.tracksIds = this.playlistForm.value.trackIds
+        .split(', ')
+        .map(Number);
       this.playlistsService.createPlaylist(playlistModel).subscribe(success => {
         if (success.result) {
-          this.router.navigate(['playlists']);
+          this.router.navigate(['playlists'], {
+            queryParams: { page: 1, size: 100 },
+          });
         }
       });
     } else {
       const playlistModel = <UpdatePlaylistModel>(
         Object.assign({}, { ...this.playlistForm.value, id: this.playlistId })
       );
-      playlistModel.trackIds = this.playlistForm.value.trackIds.split(', ');
+      playlistModel.tracksIds = this.playlistForm.value.trackIds.split(', ');
       this.playlistsService.updatePlaylist(playlistModel).subscribe(success => {
         if (success.result) {
-          this.router.navigate(['playlists']);
+          this.router.navigate(['playlists'], {
+            queryParams: { page: 1, size: 100 },
+          });
         }
       });
     }

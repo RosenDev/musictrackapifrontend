@@ -1,4 +1,5 @@
 <clr-datagrid>
+  <clr-dg-column>Id</clr-dg-column>
   <clr-dg-column>Name</clr-dg-column>
   <clr-dg-column>Duration</clr-dg-column>
   <clr-dg-column>Is Public</clr-dg-column>
@@ -7,6 +8,7 @@
   <clr-dg-column>Actions</clr-dg-column>
 
   <clr-dg-row *ngFor="let playlist of playlists">
+    <clr-dg-cell>{{ playlist.id }}</clr-dg-cell>
     <clr-dg-cell>{{ playlist.name }}</clr-dg-cell>
     <clr-dg-cell>{{ playlist.duration }}</clr-dg-cell>
     <clr-dg-cell>{{ playlist.isPublic ? 'yes' : 'no' }}</clr-dg-cell>
@@ -14,9 +16,14 @@
     <clr-dg-cell>{{ playlist.tracks.join(',') }}</clr-dg-cell>
     <clr-dg-cell>
       <clr-button
+        (click)="editPlaylist(playlist.id)"
+        [textContent]="'Edit'"
+        class="btn btn-primary-outline">
+      </clr-button>
+      <clr-button
         (click)="deletePlaylist(playlist.id)"
+        [textContent]="'Delete'"
         class="btn btn-danger-outline">
-        Delete
       </clr-button>
     </clr-dg-cell>
   </clr-dg-row>

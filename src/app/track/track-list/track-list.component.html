@@ -1,4 +1,5 @@
 <clr-datagrid>
+  <clr-dg-column>Id</clr-dg-column>
   <clr-dg-column>Name</clr-dg-column>
   <clr-dg-column>Written By</clr-dg-column>
   <clr-dg-column>Performed By</clr-dg-column>
@@ -8,6 +9,7 @@
   <clr-dg-column>Actions</clr-dg-column>
 
   <clr-dg-row *ngFor="let track of tracks">
+    <clr-dg-cell>{{ track.id }}</clr-dg-cell>
     <clr-dg-cell>{{ track.name }}</clr-dg-cell>
     <clr-dg-cell>{{ track.writtenBy }}</clr-dg-cell>
     <clr-dg-cell>{{ track.performedBy }}</clr-dg-cell>
@@ -16,12 +18,14 @@
     <clr-dg-cell>{{ track.type }}</clr-dg-cell>
     <clr-dg-cell>
       <clr-button
-        (click)="deleteTrack(track.id)"
-        class="btn btn-danger-outline">
-        Delete
+        (click)="editTrack(track.id)"
+        [textContent]="'Edit'"
+        class="btn btn-primary-outline">
       </clr-button>
-      <clr-button (click)="editTrack(track.id)" class="btn btn-primary-outline">
-        Edit
+      <clr-button
+        (click)="deleteTrack(track.id)"
+        [textContent]="'Delete'"
+        class="btn btn-danger-outline">
       </clr-button>
     </clr-dg-cell>
   </clr-dg-row>

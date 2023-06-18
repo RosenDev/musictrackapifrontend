@@ -50,4 +50,8 @@ export class PlaylistListComponent implements OnInit {
         });
     });
   }
+
+  public editPlaylist(id: number) {
+    this.router.navigate(['edit', id], { relativeTo: this.route });
+  }
 }

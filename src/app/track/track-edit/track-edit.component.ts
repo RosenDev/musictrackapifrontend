@@ -42,7 +42,7 @@ export class TrackEditComponent implements OnInit {
         this.tracksService.getEntityById(this.trackId).subscribe(x => {
           this.trackForm.patchValue(x.result);
         });
-      }else{
+      } else {
         this.title = 'Create Track';
       }
     });
@@ -59,7 +59,9 @@ export class TrackEditComponent implements OnInit {
       );
       this.tracksService.createTrack(trackModel).subscribe(success => {
         if (success) {
-          this.router.navigate(['tracks']);
+          this.router.navigate(['tracks'], {
+            queryParams: { page: 1, size: 100 },
+          });
         }
       });
     } else {
@@ -68,7 +70,9 @@ export class TrackEditComponent implements OnInit {
       );
       this.tracksService.updateTrack(trackModel).subscribe(success => {
         if (success.result) {
-          this.router.navigate(['tracks']);
+          this.router.navigate(['tracks'], {
+            queryParams: { page: 1, size: 100 },
+          });
         }
       });
     }
