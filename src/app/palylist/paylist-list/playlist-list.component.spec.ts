@@ -4,7 +4,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ClarityModule } from '@clr/angular';
 import { ServiceModule } from 'src/app/service/service.module';
-import { PlaylistListComponent } from './paylist-list.component';
+import { PlaylistListComponent } from './playlist-list.component';
 
 describe('PlaylistListComponent', () => {
   let component: PlaylistListComponent;
