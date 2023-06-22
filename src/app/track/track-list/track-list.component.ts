@@ -32,7 +32,7 @@ export class TrackListComponent implements OnInit {
       this.router
         .navigateByUrl('/refresh', { skipLocationChange: true })
         .then(() => {
-          this.router.navigate([''], {relativeTo: this.route});
+          this.router.navigate(['/tracks']);
         });
     });
   }
