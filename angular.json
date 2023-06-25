@@ -16,10 +16,23 @@
             "outputPath": "dist/musictrackapifrontend",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["node_modules/@clr/ui/clr-ui.min.css", "src/styles.css"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              {
+                "glob": "_redirects",
+                "input": "src",
+                "output": "/"
+              }
+            ],
+            "styles": [
+              "node_modules/@clr/ui/clr-ui.min.css",
+              "src/styles.css"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -70,23 +83,45 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "tsconfig.spec.json",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["node_modules/@clr/ui/clr-ui.min.css", "src/styles.css"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "node_modules/@clr/ui/clr-ui.min.css",
+              "src/styles.css"
+            ],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
+        },
+        "deploy": {
+          "builder": "@netlify-builder/deploy:deploy",
+          "options": {
+            "outputPath": "dist/musictrackapifrontend",
+            "netlifyToken": "SskmUB_MKkkax8HtD_MvlpnFrzrXv1H7R7wp9eoBI9I",
+            "siteId": "7b6df185-07f8-4269-82de-0173405a9f95"
           }
         }
       }
     }
   },
   "cli": {
-    "schematicCollections": ["@angular-eslint/schematics"]
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
