@@ -107,14 +107,6 @@
               "src/**/*.html"
             ]
           }
-        },
-        "deploy": {
-          "builder": "@netlify-builder/deploy:deploy",
-          "options": {
-            "outputPath": "dist/musictrackapifrontend",
-            "netlifyToken": "SskmUB_MKkkax8HtD_MvlpnFrzrXv1H7R7wp9eoBI9I",
-            "siteId": "7b6df185-07f8-4269-82de-0173405a9f95"
-          }
         }
       }
     }
